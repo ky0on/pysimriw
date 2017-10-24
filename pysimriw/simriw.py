@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import getwth
+from . import getwth
 
 __autor__ = 'Kyosuke Yamamoto (kyon)'
 __date__ = '20 Sep 2017'
