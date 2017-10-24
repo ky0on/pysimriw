@@ -1,4 +1,3 @@
-/output/*
+/pysimriw/output/*
 !.gitkeep
-
-/__pycache__
+__pycache__
