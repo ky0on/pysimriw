@@ -1,0 +1,86 @@
+# SIMRIW with Python
+
+## SIMRIW variables
+- `DVI`
+    - 0.0 at crop emergence
+    - 1.0 at heading
+    - 2.0 at maturity
+- `SCAT`
+    - scattering coefficient
+- `RCAN` 
+    - reflectance when the surface is completely covered by the vegetation
+- `RSOL`
+    - reflectance of bare soil
+- `REF`
+    - canopy reflectance
+- `KREF`
+    - maybe empirical constant
+- `ABSRAD`
+    - amount of radiation absorbed by the canopy
+
+## Cultivar Parameters
+- `GV` (unit=days)
+    - related to crop phenology up to heading
+    - minimum number of days required for heading of a cultivar
+- `ALF` (no unit)
+    - related to crop phenology up to heading
+    - empirical constant
+- `TH` (unit=C)
+    - related to crop phenology up to heading
+    - temperature at which DVR is half the maximum rate at the optimum temperature
+- `BDL` (no unit)
+    - related to crop phenology up to heading
+    - empirical constant
+- `LC` (unit=hours)
+    - related to crop phenology up to heading
+    - critical daylength
+- `DVIA` (no unit)
+    - related to crop phenology up to heading
+    - at which the crop becomes sensitive to photo-period
+- `TCR` (unit=C)
+    - empirical constant
+- `GR` (unit=days)
+    - for crop phenology during ripening phase
+    - minimum number of days for grain-filling period
+- `KCR` (no unit)
+    - for crop phenology during ripening phase
+    - empirical constant
+- `EXTC` (no unit)
+    - related to dry matter production
+    - extinction coefficient of the canopy to daily short-wave radiation
+- `COVES` (unit=G/MJ)
+    - related to dry matter production
+    - radiation conversion efficiency (maybe)
+- `HIMX` (no unit)
+    - maximum harvest index
+- `CTR` (unit=C)
+    - critical temp. for autumn coolness.
+- `A` (unit=/day)
+    - related to leaf area growth
+    - maximum relative growth rate of LAI (m^2/m^2)
+- `KF` (no unit)
+    - related to leaf area growth
+    - empirical constant
+- `ETA` (no unit)
+    - related to leaf area growth
+    - empirical constant
+- `FAS` (no unit)
+    - related to leaf area growth
+    - asymptotic value of the leaf area index when temperature is non-limiting (m^2/m^2)
+- `TCF` (unit=C)
+    - related to leaf area growth
+    - minimum temperature for LAI growth
+- `BETA` (no unit)
+    - related to leaf area growth
+- `THOT` (unit=C)
+    - related to cooling-degree-days for spikelet sterility
+    - based on 'cooling degree-day’ concept (always 22)
+- `STO` (unit=%)
+    - related to cooling-degree-days for spikelet sterility
+    - empirical constant (maybe)
+- `BST` (no unit)
+    - related to cooling-degree-days for spikelet sterility
+    - empirical constant (maybe)
+- `PST` (no unit)
+    - related to cooling-degree-days for spikelet sterility
+    - empirical constant (maybe)
