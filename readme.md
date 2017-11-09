@@ -1,5 +1,8 @@
 # SIMRIW with Python
 
+## Install
+- `pip install -U git+https://ky0on@bitbucket.org/ky0on/pysimriw.git`
+
 ## SIMRIW variables
 - `DVI`
     - 0.0 at crop emergence
