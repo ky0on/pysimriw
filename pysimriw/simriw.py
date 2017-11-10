@@ -238,22 +238,6 @@ def main(cultivar, weather, transplant, startday, co2, cultivar_params_file='cul
             'PY': DWPAN,
         }
 
-    #finalize
-    simday += 1
-    #todo: add day here?
-    res[simday] = {
-        'date': wth['w'].loc[day, 'date'],
-        'TMP': AVT[day],
-        'RAD': RAD[day],
-        'DL': DL[day],
-        'DVI': DVI,
-        'DVR': DVR,
-        'LAI': LAI,
-        'DW': DW,
-        'GY': DWGRAIN,
-        'PY': DWPAN,
-    }
-
     #Terminal Section of  Simulation
     PYBROD = DWGRAIN / 100.0
     PYBRON = PYBROD / 0.86
