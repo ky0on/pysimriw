@@ -126,18 +126,6 @@ def main(cultivar, weather, transplant, startday, co2, cultivar_params_file='cul
             warnings.warn('reached end of weather records')
             growing = False
 
-        res[simday] = {
-            'date': wth['w'].loc[day, 'date'],
-            'TMP': AVT[day],
-            'RAD': RAD[day],
-            'DL': DL[day],
-            'DVI': DVI,
-            'LAI': LAI,
-            'DW': DW,
-            'GY': DWGRAIN,
-            'PY': DWPAN,
-        }
-
         #Culculation of Developmental Index DVI
         if DVI < cultivar['DVIA']:
             #before crop becomes photo sensitive period
@@ -170,7 +158,7 @@ def main(cultivar, weather, transplant, startday, co2, cultivar_params_file='cul
             DVI1 = DVI
         elif DVI < 1.1:
             #after heading (empirical function)
-            GRLAI = -(LAIMX * (1.0 - cultivar['BETA']) * (DVI - DVI1)/(1.1 - DVI1))*DVR
+            GRLAI = -(LAIMX * (1.0 - cultivar['BETA']) * (DVI - DVI1)/(1.1 - DVI1)) * DVR
         else:
             #after heading (empirical function)
             GRLAI = -LAIMX * (1.0 - cultivar['BETA']) * DVR
@@ -236,14 +224,30 @@ def main(cultivar, weather, transplant, startday, co2, cultivar_params_file='cul
                 print('DVI reached to 2.')
             growing = False
 
+        #append
+        res[simday] = {
+            'date': wth['w'].loc[day, 'date'],
+            'TMP': AVT[day],   # today's temperature
+            'RAD': RAD[day],   # today's irradiance
+            'DL': DL[day],     # today's daylength
+            'DVI': DVI - DVR,  # DVI until today starts
+            'DVR': DVR,        # today's DVR
+            'LAI': LAI,
+            'DW': DW,
+            'GY': DWGRAIN,
+            'PY': DWPAN,
+        }
+
     #finalize
     simday += 1
+    #todo: add day here?
     res[simday] = {
         'date': wth['w'].loc[day, 'date'],
         'TMP': AVT[day],
         'RAD': RAD[day],
         'DL': DL[day],
         'DVI': DVI,
+        'DVR': DVR,
         'LAI': LAI,
         'DW': DW,
         'GY': DWGRAIN,
