@@ -55,17 +55,17 @@ def main(csvpath):
     w['date'] = pd.to_datetime(w.year * 1000 + w.doy, format='%Y%j')
 
     #rhmin, rhmax
-    tmin = np.maximum(w.tmin, -5)
-    tmax = np.maximum(w.tmax, -5)
-    tavg = np.maximum(w.tavg, -5)
+    tmin = np.maximum(w.tmin[~np.isnan(w.tmin)], -5)
+    tmax = np.maximum(w.tmax[~np.isnan(w.tmax)], -5)
+    tavg = np.maximum(w.tavg[~np.isnan(w.tavg)], -5)
     es = SVP(tavg)
     vp = w.relh / 100 * es
     es = SVP(tmax)
     rhmin = 100 * vp / es
-    rhmin = np.maximum(0, np.minimum(100, rhmin))
+    rhmin = np.maximum(0, np.minimum(100, rhmin[~np.isnan(rhmin)]))
     es = SVP(tmin)
     rhmax = 100 * vp / es
-    rhmax = np.maximum(0, np.minimum(100, rhmax))
+    rhmax = np.maximum(0, np.minimum(100, rhmax[~np.isnan(rhmax)]))
     w['rhmin'] = rhmin
     w['rhmax'] = rhmax
 
