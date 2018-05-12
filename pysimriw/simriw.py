@@ -231,8 +231,8 @@ def main(cultivar, weather, transplant, startday, co2, cultivar_params_file='cul
             'TMX': TMX[day],   # today's temperature (max)
             'RAD': RAD[day],   # today's irradiance
             'DL': DL[day],     # today's daylength
-            'PPM': co2,         # co2 concentration (const.)
-            'DVI': DVI - DVR,  # DVI until today starts
+            'PPM': co2,        # co2 concentration (const.)
+            'DVI': DVI,        # DVI at the end of today
             'DVR': DVR,        # today's DVR
             'LAI': LAI,
             'DW': DW,
