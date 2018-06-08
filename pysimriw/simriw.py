@@ -234,6 +234,8 @@ def main(cultivar, weather, transplant, startday, co2, cultivar_params_file='cul
             'PPM': co2,        # co2 concentration (const.)
             'DVI': DVI,        # DVI at the end of today
             'DVR': DVR,        # today's DVR
+            'ATHHT': ATHHT,
+            'ATHLT': ATHLT,
             'LAI': LAI,
             'DW': DW,
             'GY': DWGRAIN,
