@@ -2,13 +2,15 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-import os
 import hjson
 import warnings
 import numpy as np
 import pandas as pd
 
-from . import getwth
+try:
+    from . import getwth
+except:
+    import getwth
 
 __autor__ = 'Kyosuke Yamamoto (kyon)'
 __date__ = '20 Sep 2017'
@@ -127,7 +129,7 @@ def main(cultivar, weather, transplant, startday, co2, cultivar_params_file='cul
             growing = False
 
         #Culculation of Developmental Index DVI
-        if DVI < cultivar['DVIA']:
+        if DVI < cultivar['DVIA']:   # 0.23 (Koshihikari)
             #before crop becomes photo sensitive period
             EFT = AVT[day] - cultivar['TH']
             DVR = 1. / (cultivar['GV'] * (1.0 + np.exp(-cultivar['ALF'] * EFT)))
@@ -182,6 +184,7 @@ def main(cultivar, weather, transplant, startday, co2, cultivar_params_file='cul
         else:
             #decreases gradually toward zero at maturity
             CONEF = COVCO2 * (1.0+CL)/(1.0+CL * np.exp((DVI - 1.0)/TAUC))
+        # print(f'DEBUG: DVI={DVI:.2}, CONEF={CONEF:.2}')
         DW = DW + CONEF * ABSRAD  # daily dry matter production = absorbed radiation * radiation conversion efficiency
 
         #Culuculation of Spikelet Sterility Percentage due to Cool Temerature
@@ -260,3 +263,31 @@ def main(cultivar, weather, transplant, startday, co2, cultivar_params_file='cul
     simulated['d'] = pd.DataFrame(res).T   # [1:simday, ]
 
     return simulated
+
+
+if __name__ == '__main__':
+
+    import argparse
+    import matplotlib.pyplot as plt
+
+    #argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--cultivar', '-c', default='Nipponbare', type=str)
+    parser.add_argument('--weather', '-w', default='./dataset/daily_weather_28368.nasa.csv', type=str)
+    parser.add_argument('--startday', '-s', default='2000-05-15', type=str)
+    parser.add_argument('--co2', default=350, type=int)
+    parser.add_argument('--transplant', action='store_true')
+    parser.add_argument('--out', default='output', type=str)
+    args = parser.parse_args()
+
+    #init
+    plt.style.use('ggplot')
+    simulated = main(args.cultivar, args.weather, args.transplant,
+                     args.startday, args.co2,
+                     cultivar_params_file='cultivars.hjson')
+
+    #plot
+    simulated['d'][['DW', 'GY', 'PY']].plot()
+    plt.savefig('/tmp/simulated.png')
+    simulated['d'].to_csv('/tmp/simulated.csv')
+    print('\nsimulated["d"].tail():\n', simulated['d'].tail())
